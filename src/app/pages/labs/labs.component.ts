@@ -16,4 +16,7 @@ export class LabsComponent {
     "Create projects with Angular",
     "Integrate APIs with Angular"
   ];
+  name: string = "Nicole";
+  disabled: boolean = true;
+  image: string = "https://picsum.photos/123";
 }
