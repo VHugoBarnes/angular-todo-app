@@ -14,4 +14,6 @@
   <button (dblclick)="handleDoubleChange()">Double Click Me!</button>
   <p>(change)</p>
   <input type="text" [value]="name" (change)="handleInputChange($event)">
+  <p>(keydown)</p>
+  <input type="text" [value]="name" (keydown.shift.t)="handleInputChange($event)">
 </div>
