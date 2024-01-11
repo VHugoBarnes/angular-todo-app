@@ -19,4 +19,16 @@ export class LabsComponent {
   name: string = "Nicole";
   disabled: boolean = true;
   image: string = "https://picsum.photos/123";
+
+  handleChange() {
+    console.log("HOLA");
+  }
+
+  handleDoubleChange() {
+    console.log("Doble HOLA");
+  }
+
+  handleInputChange(event: Event) {
+    console.log(event);
+  }
 }

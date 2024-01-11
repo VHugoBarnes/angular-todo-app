@@ -1,9 +1,17 @@
-<h1>Angular {{title}}</h1>
-<ul>
-  <li *ngFor="let task of tasks">{{task}}</li>
-</ul>
-<hr />
+<div class="container">
+  <h1>Angular {{title}}</h1>
+  <ul>
+    <li *ngFor="let task of tasks">{{task}}</li>
+  </ul>
+  <hr />
 
-<img [src]="image" [alt]="name">
-<input type="text" [value]="name">
-<button [disabled]="disabled">Click me</button>
+  <img [src]="image" [alt]="name">
+  <input type="text" [value]="name">
+  <button [disabled]="disabled">Click me</button>
+  <hr />
+
+  <button (click)="handleChange()">Click Me!</button>
+  <button (dblclick)="handleDoubleChange()">Double Click Me!</button>
+  <p>(change)</p>
+  <input type="text" [value]="name" (change)="handleInputChange($event)">
+</div>
