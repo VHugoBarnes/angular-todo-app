@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,7 +16,7 @@ export class LabsComponent {
     "Create projects with Angular",
     "Integrate APIs with Angular"
   ];
-  name: string = "Nicole";
+  name = signal("Nicole");
   disabled: boolean = true;
   image: string = "https://picsum.photos/123";
 
@@ -30,5 +30,12 @@ export class LabsComponent {
 
   handleInputChange(event: Event) {
     console.log(event);
+  }
+
+  handleInputSignalChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+
+    this.name.set(newValue);
   }
 }

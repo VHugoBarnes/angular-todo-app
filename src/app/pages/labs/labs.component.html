@@ -5,15 +5,19 @@
   </ul>
   <hr />
 
-  <img [src]="image" [alt]="name">
-  <input type="text" [value]="name">
+  <img [src]="image" [alt]="name()">
+  <input type="text" [value]="name()">
   <button [disabled]="disabled">Click me</button>
   <hr />
 
   <button (click)="handleChange()">Click Me!</button>
   <button (dblclick)="handleDoubleChange()">Double Click Me!</button>
   <p>(change)</p>
-  <input type="text" [value]="name" (change)="handleInputChange($event)">
+  <input type="text" [value]="name()" (change)="handleInputChange($event)">
   <p>(keydown)</p>
-  <input type="text" [value]="name" (keydown.shift.t)="handleInputChange($event)">
+  <input type="text" [value]="name()" (keydown.shift.t)="handleInputChange($event)">
+  <hr />
+
+  <h1>Signals</h1>
+  <input type="text" [value]="name()" (change)="handleInputSignalChange($event)">
 </div>
