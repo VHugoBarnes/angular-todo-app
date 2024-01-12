@@ -25,4 +25,8 @@
 
   <h1>Signals</h1>
   <input type="text" [value]="name()" (change)="handleInputSignalChange($event)">
+  <hr />
+
+  <input type="color" [formControl]="colorCtrl">
+  <p>color: {{colorCtrl.value}}</p>
 </div>
