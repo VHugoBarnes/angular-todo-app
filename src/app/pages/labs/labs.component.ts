@@ -10,12 +10,12 @@ import { CommonModule } from '@angular/common';
 })
 export class LabsComponent {
   title: string = "Labs!";
-  tasks: string[] = [
+  tasks = signal<string[]>([
     "Install Angular CLI",
     "Study Angular!",
     "Create projects with Angular",
     "Integrate APIs with Angular"
-  ];
+  ]);
   name = signal("Nicole");
   disabled: boolean = true;
   image: string = "https://picsum.photos/123";
