@@ -4,3 +4,9 @@ export interface Task {
   completed: boolean;
   editing?: boolean;
 }
+
+export enum TaskState {
+  "all",
+  "pending",
+  "completed"
+};
