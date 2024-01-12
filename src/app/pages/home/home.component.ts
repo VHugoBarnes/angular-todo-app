@@ -44,6 +44,13 @@ export class HomeComponent {
       Validators.pattern("^\\S.*$")
     ]
   });
+  editedTask = new FormControl("", {
+    nonNullable: true,
+    validators: [
+      Validators.required,
+      Validators.pattern("^\\S.*$")
+    ]
+  });
 
   changeHandler() {
     if (this.newTaskCtrl.invalid) return;
@@ -53,17 +60,7 @@ export class HomeComponent {
     this.newTaskCtrl.setValue("");
   }
 
-  private addTask(title: string) {
-    const newTask: Task = {
-      id: uuidv4(),
-      title: title,
-      completed: false
-    };
-    this.tasks.update((tasks) => [...tasks, newTask]);
-  }
-
   deleteTask(index: string) {
-    console.log(index);
     this.tasks.update(tasks => tasks.filter((task) => task.id !== index));
   }
 
@@ -78,5 +75,62 @@ export class HomeComponent {
 
       return task;
     }));
+  }
+
+  enableEditingMode(index: string) {
+    this.tasks.update(tasks => tasks.map((task) => {
+      if (task.id === index) {
+        return {
+          ...task,
+          editing: true
+        }
+      }
+
+      return {
+        ...task,
+        editing: false
+      };
+    }));
+
+    const taskToUpdate = this.tasks().find(task => task.id === index);
+    this.editedTask.setValue(taskToUpdate?.title ?? "");
+  }
+
+  updateTask(index: string) {
+    if (this.editedTask.invalid) {
+      this.tasks.update(tasks => tasks.map((task) => {
+        if (task.id === index) {
+          return {
+            ...task,
+            editing: false
+          }
+        }
+
+        return task;
+      }));
+    } else {
+      this.tasks.update(tasks => tasks.map((task) => {
+        if (task.id === index) {
+          return {
+            ...task,
+            title: this.editedTask.value.trim(),
+            editing: false
+          }
+        }
+
+        return task;
+      }));
+    }
+
+    this.editedTask.setValue("");
+  }
+
+  private addTask(title: string) {
+    const newTask: Task = {
+      id: uuidv4(),
+      title: title,
+      completed: false
+    };
+    this.tasks.update((tasks) => [...tasks, newTask]);
   }
 }
