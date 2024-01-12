@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
+import { Task } from '../../models/task.model';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-home',
@@ -9,21 +11,60 @@ import { Component, signal } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  tasks = signal<string[]>([
-    "Install Angular CLI",
-    "Study Angular!",
-    "Create projects with Angular",
-    "Integrate APIs with Angular"
+  tasks = signal<Task[]>([
+    {
+      id: uuidv4(),
+      title: "Install Angular CLI",
+      completed: false
+    },
+    {
+      id: uuidv4(),
+      title: "Study Angular!",
+      completed: false
+    },
+    {
+      id: uuidv4(),
+      title: "Create projects with Angular",
+      completed: true,
+    },
+    {
+      id: uuidv4(),
+      title: "Integrate APIs with Angular",
+      completed: false
+    }
   ]);
+  tasksLeft = computed(() => this.tasks().filter(t => t.completed === false).length);
 
   changeHandler(event: Event) {
     const input = event.target as HTMLInputElement;
-    const newTask = input.value;
-    this.tasks.update((tasks) => [...tasks, newTask]);
+    this.addTask(input.value);
     input.value = "";
   }
 
-  deleteTask(index: number) {
-    this.tasks.update(tasks => tasks.filter((_, i) => i !== index));
+  private addTask(title: string) {
+    const newTask: Task = {
+      id: uuidv4(),
+      title: title,
+      completed: false
+    };
+    this.tasks.update((tasks) => [...tasks, newTask]);
+  }
+
+  deleteTask(index: string) {
+    console.log(index);
+    this.tasks.update(tasks => tasks.filter((task) => task.id !== index));
+  }
+
+  toggleTask(index: string) {
+    this.tasks.update(tasks => tasks.map((task) => {
+      if (task.id === index) {
+        return {
+          ...task,
+          completed: !task.completed
+        }
+      }
+
+      return task;
+    }));
   }
 }
