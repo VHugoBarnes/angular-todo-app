@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "dist/angular-practice",
+    "site": "victor-angular-todo",
     "ignore": [
       "firebase.json",
       "**/.*",
