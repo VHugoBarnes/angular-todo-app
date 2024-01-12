@@ -49,7 +49,7 @@ export class HomeComponent {
     if (this.newTaskCtrl.invalid) return;
 
     const value = this.newTaskCtrl.value;
-    this.addTask(value);
+    this.addTask(value.trim());
     this.newTaskCtrl.setValue("");
   }
 
